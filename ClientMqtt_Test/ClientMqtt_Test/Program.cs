@@ -58,7 +58,6 @@ do
             Console.WriteLine("publish_int: si connette al broker ed effettua la publicazione di un valore intero.");
             Console.WriteLine("publish_json: si connette al broker ed effettua la publicazione di un valore json.");
             Console.WriteLine("subscribe: si connette al broker ed effettua una sottoscrizione.");
-            Console.WriteLine("subscribe_cs: si connette al broker con la Clean Sessione.");
             Console.WriteLine("subscribe_wc: si connette al broker ed effettua una sottoscrizione come Wild Card.");
             Console.WriteLine("timer: esegue un test dello Sleep.");
             Console.WriteLine("verifyconnection: esegue un test di connessione del client al broker.");
