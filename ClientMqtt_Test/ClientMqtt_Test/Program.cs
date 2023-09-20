@@ -30,7 +30,7 @@ string _server = "127.0.0.1";
 ///Topic WildCard 3-TRIS legge tutti i sottolivelli sotto al 2022 per OGNI livello sotto BIG
 //string _subscribeTopic = "BIG/+/2022/#";
 ///Topic specifico, sottoscrive e legge i cambiamenti solamente di quello specifico Topic
-string _subscribeTopic = "BIG/Test/2023";
+string _subscribeTopic = "BIG/Test/INT/2023";
 
 #endregion
 
@@ -87,7 +87,9 @@ do
             using (var mqttClient = (MqttClient)mqttFactory.CreateMqttClient())
             {
                 await _managerMqtt.Connect(_server, mqttClient);
-                await _managerMqtt.Publish(_publishTopic, mqttClient, "int", true, "Testo_Retained");
+                await _managerMqtt.Publish(_publishTopic + "/1", mqttClient, "int", true, "Testo_Retained");
+                await _managerMqtt.Publish(_publishTopic + "/2", mqttClient, "int", true, "Testo_Retained");
+                await _managerMqtt.Publish(_publishTopic + "/2", mqttClient, "int", false, "Testo_NON_Retained");
                 await _managerMqtt.Disconnect(mqttFactory, mqttClient);
             }
             break;
