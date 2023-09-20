@@ -55,9 +55,10 @@ namespace ClientMqtt_Test
         /// <param name="MqttClient"></param>
         /// <param name="Type"></param>
         /// <returns></returns>
-        public async Task Publish(string Topic, IMqttClient MqttClient, string Type)
+        public async Task Publish(string Topic, IMqttClient MqttClient, string Type, bool Retain = false, string Testo = "")
         {
             var msgCostruttore = new MqttApplicationMessageBuilder()
+                .WithRetainFlag(Retain)
                 .WithTopic(Topic);
 
             if (Type == "json")
@@ -76,8 +77,12 @@ namespace ClientMqtt_Test
             }
             else
             {
-                var valore = DateTime.Now.Millisecond;
-                msgCostruttore.WithPayload(valore.ToString());
+                if (String.IsNullOrEmpty(Testo))
+                {
+                    var valore = DateTime.Now.Millisecond;
+                    msgCostruttore.WithPayload(valore.ToString());
+                }
+                else msgCostruttore.WithPayload(Testo);
             }
 
             var messaggio = msgCostruttore.Build();

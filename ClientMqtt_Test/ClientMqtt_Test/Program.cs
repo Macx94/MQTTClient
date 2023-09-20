@@ -14,22 +14,26 @@ string _server = "127.0.0.1";
 //string _server = "test.mosquitto.org";
 //string _server = "broker.hivemq.com";
 
+#region Logica Topic Sottoscrizione
+
 ///Indicazione di Topic 
 ///Topic WildCard che consente la sottoscrizione a TUTTI i topic tranne a quelli che iniziano con il carattere $ genericamente riservati e in sola lettura
-///string _subscribeTopic = "#";
+//string _subscribeTopic = "#";
 ///Topic WildCard che consente la sottoscrizione a TUTTI i topic tranne a quelli che iniziano con il carattere $ genericamente riservati e in sola lettura
-///string _subscribeTopic = "+";
+//string _subscribeTopic = "+";
 ///Topic WildCard 2 che legge tutti i sottoTopic di quel percorso
-///string _subscribeTopic = "BIG/#";
+//string _subscribeTopic = "BIG/#";
 ///Topic WildCard 3 che legge solamente il livello immediatamente sotto
-///string _subscribeTopic = "BIG/+";
+//string _subscribeTopic = "BIG/+";
 ///Topic WildCard 3-BIS che legge solamente il livello 2022 ma di tutti i livelli immediatamente sotto
-///string _subscribeTopic = "BIG/+/2022";
+//string _subscribeTopic = "BIG/+/2022";
 ///Topic WildCard 3-TRIS legge tutti i sottolivelli sotto al 2022 per OGNI livello sotto BIG
-///string _subscribeTopic = "BIG/+/2022/#";
+//string _subscribeTopic = "BIG/+/2022/#";
 ///Topic specifico, sottoscrive e legge i cambiamenti solamente di quello specifico Topic
-
 string _subscribeTopic = "BIG/Test/2023";
+
+#endregion
+
 string _publishTopic = "BIG/Test/INT/2023";
 string _publishTopic2 = "BIG/Test/JSON/2023";
 
@@ -56,6 +60,7 @@ do
             break;
         case ("help"):
             Console.WriteLine("publish_int: si connette al broker ed effettua la publicazione di un valore intero.");
+            Console.WriteLine("publish_ri: si connette al broker ed effettua la publicazione di un valore intero con flag Retain.");
             Console.WriteLine("publish_json: si connette al broker ed effettua la publicazione di un valore json.");
             Console.WriteLine("subscribe: si connette al broker ed effettua una sottoscrizione.");
             Console.WriteLine("subscribe_wc: si connette al broker ed effettua una sottoscrizione come Wild Card.");
@@ -75,6 +80,14 @@ do
             {
                 await _managerMqtt.Connect(_server, mqttClient);
                 await _managerMqtt.Publish(_publishTopic2, mqttClient, "json");
+                await _managerMqtt.Disconnect(mqttFactory, mqttClient);
+            }
+            break;
+        case ("publish_ri"):
+            using (var mqttClient = (MqttClient)mqttFactory.CreateMqttClient())
+            {
+                await _managerMqtt.Connect(_server, mqttClient);
+                await _managerMqtt.Publish(_publishTopic, mqttClient, "int", true, "Testo_Retained");
                 await _managerMqtt.Disconnect(mqttFactory, mqttClient);
             }
             break;
