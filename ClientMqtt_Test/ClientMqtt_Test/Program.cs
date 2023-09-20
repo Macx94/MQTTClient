@@ -14,8 +14,24 @@ string _server = "127.0.0.1";
 //string _server = "test.mosquitto.org";
 //string _server = "broker.hivemq.com";
 
+///Indicazione di Topic 
+///Topic WildCard che consente la sottoscrizione a TUTTI i topic tranne a quelli che iniziano con il carattere $ genericamente riservati e in sola lettura
+///string _subscribeTopic = "#";
+///Topic WildCard che consente la sottoscrizione a TUTTI i topic tranne a quelli che iniziano con il carattere $ genericamente riservati e in sola lettura
+///string _subscribeTopic = "+";
+///Topic WildCard 2 che legge tutti i sottoTopic di quel percorso
+///string _subscribeTopic = "BIG/#";
+///Topic WildCard 3 che legge solamente il livello immediatamente sotto
+///string _subscribeTopic = "BIG/+";
+///Topic WildCard 3-BIS che legge solamente il livello 2022 ma di tutti i livelli immediatamente sotto
+///string _subscribeTopic = "BIG/+/2022";
+///Topic WildCard 3-TRIS legge tutti i sottolivelli sotto al 2022 per OGNI livello sotto BIG
+///string _subscribeTopic = "BIG/+/2022/#";
+///Topic specifico, sottoscrive e legge i cambiamenti solamente di quello specifico Topic
+
 string _subscribeTopic = "BIG/Test/2023";
-string _publishTopic = "BIG/Test/2023";
+string _publishTopic = "BIG/Test/INT/2023";
+string _publishTopic2 = "BIG/Test/JSON/2023";
 
 ClientManager _managerMqtt = new ClientManager();
 MqttFactory mqttFactory = new MqttFactory();
@@ -26,7 +42,6 @@ Console.Write($"Ciao,\n " +
     $"Scrivi 'exit' per uscire.\n");
 do
 {
-
     //Leggo l'input digitato nella console
     _command = Console.ReadLine();
 
@@ -40,16 +55,25 @@ do
             _keepAlive = false;
             break;
         case ("help"):
-            Console.WriteLine("publish: esegue una publicazione sul broker.");
+            Console.WriteLine("publish_int: si connette al broker ed effettua la publicazione di un valore intero.");
+            Console.WriteLine("publish_json: si connette al broker ed effettua la publicazione di un valore json.");
             Console.WriteLine("subscribe: esegue una sottoscrizione sul broker per uno specifico Topic.");
             Console.WriteLine("timer: esegue un test dello Sleep.");
             Console.WriteLine("verifyconnection: esegue un test di connessione del client al broker.");
             break;
-        case ("publish"):
-            using (var mqttClient = mqttFactory.CreateMqttClient())
+        case ("publish_int"):
+            using (var mqttClient = (MqttClient)mqttFactory.CreateMqttClient())
             {
                 await _managerMqtt.Connect(_server, mqttClient);
-                await _managerMqtt.Publish(_publishTopic, mqttClient);
+                await _managerMqtt.Publish(_publishTopic, mqttClient, "int");
+                await _managerMqtt.Disconnect(mqttFactory, mqttClient);
+            }
+            break;
+        case ("publish_json"):
+            using (var mqttClient = (MqttClient)mqttFactory.CreateMqttClient())
+            {
+                await _managerMqtt.Connect(_server, mqttClient);
+                await _managerMqtt.Publish(_publishTopic2, mqttClient, "json");
                 await _managerMqtt.Disconnect(mqttFactory, mqttClient);
             }
             break;

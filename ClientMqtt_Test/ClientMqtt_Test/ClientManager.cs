@@ -1,5 +1,6 @@
 ﻿using MQTTnet;
 using MQTTnet.Client;
+using Newtonsoft.Json;
 
 namespace ClientMqtt_Test
 {
@@ -50,14 +51,52 @@ namespace ClientMqtt_Test
         /// <summary>
         /// Exec the Publication to Topic
         /// </summary>
-        /// <param name="_mqttFactory"></param>
-        /// <param name="_mqttClient"></param>
+        /// <param name="Topic"></param>
+        /// <param name="MqttClient"></param>
+        /// <param name="Type"></param>
         /// <returns></returns>
-        public async Task Publish(string Topic, IMqttClient MqttClient)
+        public async Task Publish(string Topic, MqttClient MqttClient, string Type)
         {
-            var valore = DateTime.Now.Millisecond;
-            await MqttClient.PublishStringAsync(Topic, valore.ToString());
-            Console.WriteLine("Pubblicazione avvenuta con successo!");
+            var msgCostruttore = new MqttApplicationMessageBuilder()
+                .WithTopic(Topic);
+
+            if (Type == "json")
+            {
+                Dictionary<string, string> objectJson = new Dictionary<string, string>();
+                for (int i = 1; i < 5; i++)
+                {
+                    objectJson.Add(
+                        String.Format("Sensore{0}", i),
+                        GetRandomeNumber(i).ToString()
+                        );
+                }
+
+                var payload = JsonConvert.SerializeObject(objectJson);
+                msgCostruttore.WithPayload(payload);
+            }
+            else
+            {
+                var valore = DateTime.Now.Millisecond;
+                msgCostruttore.WithPayload(valore.ToString());
+            }
+
+            var messaggio = msgCostruttore.Build();
+            var result = MqttClient.PublishAsync(messaggio).Result;
+
+            if (result.IsSuccess)
+            {
+                Console.WriteLine("Pubblicazione avvenuta con successo!");
+            }
+            else
+            {
+                Console.WriteLine("Errore in fase di pubblicazione!");
+            }
+        }
+
+        private double GetRandomeNumber(int Seed)
+        {
+            Random rand = new Random(Seed);
+            return rand.NextDouble();
         }
     }
 }

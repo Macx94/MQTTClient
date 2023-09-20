@@ -15,3 +15,4 @@ C:\SviluppoTest\MQTTClient\ClientMqtt_Test\ClientMqtt_Test\obj\Debug\net6.0\refi
 C:\SviluppoTest\MQTTClient\ClientMqtt_Test\ClientMqtt_Test\obj\Debug\net6.0\ClientMqtt_Test.pdb
 C:\SviluppoTest\MQTTClient\ClientMqtt_Test\ClientMqtt_Test\obj\Debug\net6.0\ClientMqtt_Test.genruntimeconfig.cache
 C:\SviluppoTest\MQTTClient\ClientMqtt_Test\ClientMqtt_Test\obj\Debug\net6.0\ref\ClientMqtt_Test.dll
+C:\SviluppoTest\MQTTClient\ClientMqtt_Test\ClientMqtt_Test\bin\Debug\net6.0\Newtonsoft.Json.dll
