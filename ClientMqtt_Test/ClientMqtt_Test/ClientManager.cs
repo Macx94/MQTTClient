@@ -55,7 +55,7 @@ namespace ClientMqtt_Test
         /// <param name="MqttClient"></param>
         /// <param name="Type"></param>
         /// <returns></returns>
-        public async Task Publish(string Topic, MqttClient MqttClient, string Type)
+        public async Task Publish(string Topic, IMqttClient MqttClient, string Type)
         {
             var msgCostruttore = new MqttApplicationMessageBuilder()
                 .WithTopic(Topic);

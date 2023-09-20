@@ -14,7 +14,7 @@ namespace ClientMqtt_Test
         /// Costruttore della classe, aggancia l'evento per l'ascolto dei messaggi
         /// </summary>
         /// <param name="Client"></param>
-        public Subscription(MqttClient Client)
+        public Subscription(IMqttClient Client)
         {
             Client.ApplicationMessageReceivedAsync += OnApplicationMessageReceivedAsync;
         }
@@ -25,13 +25,28 @@ namespace ClientMqtt_Test
         /// <param name="Server"></param>
         /// <param name="MqttClient"></param
         /// <returns></returns>
-        public async Task Connect(string Server, MqttClient MqttClient)
+        public async Task Connect(string Server, IMqttClient MqttClient)
         {
-            var mqttOpzioni = new MqttClientOptionsBuilder()
-                .WithTcpServer(Server)
-                .WithProtocolVersion(MQTTnet.Formatter.MqttProtocolVersion.V311)
-                .Build();
-            var response = await MqttClient.ConnectAsync(mqttOpzioni, CancellationToken.None);
+            try
+            {
+                var mqttOpzioni = new MqttClientOptionsBuilder()
+                    .WithTcpServer(Server)
+                    .WithProtocolVersion(MQTTnet.Formatter.MqttProtocolVersion.V311)
+                    .Build();
+
+                var response = await MqttClient.ConnectAsync(mqttOpzioni, CancellationToken.None);
+
+                if (response.ResultCode == MqttClientConnectResultCode.Success)
+                {
+                    Console.WriteLine("Test di connessione completato con successo!");
+                }
+                else
+                    Console.WriteLine("Attenzione: impossibile connettersi al Brocker!");
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Attenzione: impossibile connettersi al Brocker!");
+            }
         }
 
         /// <summary>
@@ -40,7 +55,7 @@ namespace ClientMqtt_Test
         /// <param name="MqttFactory"></param>
         /// <param name="MqttClient"></param>
         /// <returns></returns>
-        public async Task Disconnect(MqttFactory MqttFactory, MqttClient MqttClient)
+        public async Task Disconnect(MqttFactory MqttFactory, IMqttClient MqttClient)
         {
             var mqttOpzioni = MqttFactory.CreateClientDisconnectOptionsBuilder().Build();
             await MqttClient.DisconnectAsync(mqttOpzioni, CancellationToken.None);
@@ -52,7 +67,7 @@ namespace ClientMqtt_Test
         /// <param name="Topic"></param>
         /// <param name="MqttClient"></param>
         /// <returns></returns>
-        public async Task Subscribe(string Topic, MqttClient MqttClient)
+        public async Task Subscribe(string Topic, IMqttClient MqttClient)
         {
             try
             {
@@ -78,7 +93,7 @@ namespace ClientMqtt_Test
         /// <param name="Topic"></param>
         /// <param name="MqttClient"></param>
         /// <returns></returns>
-        public async Task Unsubscribe(string Topic, MqttClient MqttClient)
+        public async Task Unsubscribe(string Topic, IMqttClient MqttClient)
         {
             try
             {
