@@ -57,7 +57,9 @@ do
         case ("help"):
             Console.WriteLine("publish_int: si connette al broker ed effettua la publicazione di un valore intero.");
             Console.WriteLine("publish_json: si connette al broker ed effettua la publicazione di un valore json.");
-            Console.WriteLine("subscribe: esegue una sottoscrizione sul broker per uno specifico Topic.");
+            Console.WriteLine("subscribe: si connette al broker ed effettua una sottoscrizione.");
+            Console.WriteLine("subscribe_cs: si connette al broker con la Clean Sessione.");
+            Console.WriteLine("subscribe_wc: si connette al broker ed effettua una sottoscrizione come Wild Card.");
             Console.WriteLine("timer: esegue un test dello Sleep.");
             Console.WriteLine("verifyconnection: esegue un test di connessione del client al broker.");
             break;
@@ -93,6 +95,25 @@ do
                 Thread.Sleep(10000);
                 Console.WriteLine("FINE!!!");
                 await sottoscrittore.Unsubscribe(_subscribeTopic, mqttClient);
+                await sottoscrittore.Disconnect(mqttFactory, mqttClient);
+            }
+            break;
+        case ("subscribe_wc"):
+            using (var mqttClient = (MqttClient)mqttFactory.CreateMqttClient())
+            {
+                Subscription sottoscrittore = new Subscription(mqttClient);
+                await sottoscrittore.Connect(_server, mqttClient);
+                await sottoscrittore.Subscribe("#", mqttClient);
+                Console.WriteLine("Azione avviata, durata dell'operazione 2 minuti ");
+                Thread.Sleep(60000);
+                Console.WriteLine("1 minuto ");
+                Thread.Sleep(30000);
+                Console.WriteLine("30 secondi....");
+                Thread.Sleep(20000);
+                Console.WriteLine("10 secondi....");
+                Thread.Sleep(10000);
+                Console.WriteLine("FINE!!!");
+                await sottoscrittore.Unsubscribe("#", mqttClient);
                 await sottoscrittore.Disconnect(mqttFactory, mqttClient);
             }
             break;
