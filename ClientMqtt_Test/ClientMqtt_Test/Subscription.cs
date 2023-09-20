@@ -83,7 +83,7 @@ namespace ClientMqtt_Test
             }
             catch (Exception ex)
             {
-
+                Console.WriteLine($"Errore in fase di avvio della sottoscrizione: {ex.Message}");
             }
         }
 
@@ -101,7 +101,7 @@ namespace ClientMqtt_Test
             }
             catch (Exception ex)
             {
-
+                Console.WriteLine($"Errore in fase di rimozione della sottoscrizione: {ex.Message}");
             }
         }
 
@@ -121,7 +121,7 @@ namespace ClientMqtt_Test
             }
             catch (Exception ex)
             {
-
+                Console.WriteLine($"Errore in fase di ricezione del messaggio: {ex.Message}");
             }
         }
     }
