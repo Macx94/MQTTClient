@@ -1,0 +1,13 @@
+1. Configurare un broker mqtt sfruttando Docker e eclipse-mosquitto.
+
+I Comandi utilizzati per configurare il Broker su Docker:
+	
+	1. creo il broker su docker che rimane in ascolto sulla porta 1883 del localhost (quindi tcp)
+		docker run --init -d -it -p 1883:1883 --name mosquitto-broker --restart always eclipse-mosquitto
+	2. test di publicazione di un messaggio su sull'IP del broker
+		mosquitto_pub -h 127.0.0.1 -p 1883 -t "test/topic" -m "Hello, MQTT World 22!" -d       
+	3. test di sottoscrizione al topic 
+		mosquitto_sub -h 127.0.0.1 -p 1883 -t "test/topic" -d
+
+Per eseguire delle operazioni più comprensibili esiste un'interfaccia grafica facile da utilizzare:
+	http://mqtt-explorer.com/
