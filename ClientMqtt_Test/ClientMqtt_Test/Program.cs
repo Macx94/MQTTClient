@@ -13,8 +13,10 @@ string _server = "127.0.0.1";
 //string _server = "test.mosquitto.org";
 //string _server = "broker.hivemq.com";
 
+string _publishTopic = "BIG/Test/2023";
 
 ClientManager _managerMqtt = new ClientManager();
+MqttFactory mqttFactory = new MqttFactory();
 
 //Primo comando descrittivo
 Console.Write($"Ciao,\n " +
@@ -36,8 +38,17 @@ do
             _keepAlive = false;
             break;
         case ("help"):
+            Console.WriteLine("publish: esegue una publicazione sul broker.");
             Console.WriteLine("timer: esegue un test dello Sleep.");
             Console.WriteLine("verifyconnection: esegue un test di connessione del client al broker.");
+            break;
+        case ("publish"):
+            using (var mqttClient = mqttFactory.CreateMqttClient())
+            {
+                await _managerMqtt.Connect(_server, mqttClient);
+                await _managerMqtt.Publish(_publishTopic, mqttClient);
+                await _managerMqtt.Disconnect(mqttFactory, mqttClient);
+            }
             break;
         case ("timer"):
             Thread.Sleep(1000);
@@ -51,7 +62,6 @@ do
             Console.WriteLine("FINE");
             break;
         case ("verifyconnection"):
-            MqttFactory mqttFactory = new MqttFactory();
             using (var mqttClient = mqttFactory.CreateMqttClient())
             {
                 await _managerMqtt.Connect(_server, mqttClient);

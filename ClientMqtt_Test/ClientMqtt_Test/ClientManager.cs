@@ -44,4 +44,17 @@ public class ClientManager
         var mqttOpzioni = MqttFactory.CreateClientDisconnectOptionsBuilder().Build();
         await MqttClient.DisconnectAsync(mqttOpzioni, CancellationToken.None);
     }
+
+    /// <summary>
+    /// Exec the Publication to Topic
+    /// </summary>
+    /// <param name="_mqttFactory"></param>
+    /// <param name="_mqttClient"></param>
+    /// <returns></returns>
+    public async Task Publish(string Topic, IMqttClient MqttClient)
+    {
+        var valore = DateTime.Now.Millisecond;
+        await MqttClient.PublishStringAsync(Topic, valore.ToString());
+        Console.WriteLine("Pubblicazione avvenuta con successo!");
+    }
 }
