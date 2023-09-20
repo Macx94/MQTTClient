@@ -1,0 +1,17 @@
+C:\SviluppoTest\MQTTClient\ClientMqtt_Test\ClientMqtt_Test\bin\Debug\net6.0\ClientMqtt_Test.exe
+C:\SviluppoTest\MQTTClient\ClientMqtt_Test\ClientMqtt_Test\bin\Debug\net6.0\ClientMqtt_Test.deps.json
+C:\SviluppoTest\MQTTClient\ClientMqtt_Test\ClientMqtt_Test\bin\Debug\net6.0\ClientMqtt_Test.runtimeconfig.json
+C:\SviluppoTest\MQTTClient\ClientMqtt_Test\ClientMqtt_Test\bin\Debug\net6.0\ClientMqtt_Test.dll
+C:\SviluppoTest\MQTTClient\ClientMqtt_Test\ClientMqtt_Test\bin\Debug\net6.0\ClientMqtt_Test.pdb
+C:\SviluppoTest\MQTTClient\ClientMqtt_Test\ClientMqtt_Test\bin\Debug\net6.0\MQTTnet.dll
+C:\SviluppoTest\MQTTClient\ClientMqtt_Test\ClientMqtt_Test\obj\Debug\net6.0\ClientMqtt_Test.csproj.AssemblyReference.cache
+C:\SviluppoTest\MQTTClient\ClientMqtt_Test\ClientMqtt_Test\obj\Debug\net6.0\ClientMqtt_Test.GeneratedMSBuildEditorConfig.editorconfig
+C:\SviluppoTest\MQTTClient\ClientMqtt_Test\ClientMqtt_Test\obj\Debug\net6.0\ClientMqtt_Test.AssemblyInfoInputs.cache
+C:\SviluppoTest\MQTTClient\ClientMqtt_Test\ClientMqtt_Test\obj\Debug\net6.0\ClientMqtt_Test.AssemblyInfo.cs
+C:\SviluppoTest\MQTTClient\ClientMqtt_Test\ClientMqtt_Test\obj\Debug\net6.0\ClientMqtt_Test.csproj.CoreCompileInputs.cache
+C:\SviluppoTest\MQTTClient\ClientMqtt_Test\ClientMqtt_Test\obj\Debug\net6.0\ClientMqtt_Test.csproj.CopyComplete
+C:\SviluppoTest\MQTTClient\ClientMqtt_Test\ClientMqtt_Test\obj\Debug\net6.0\ClientMqtt_Test.dll
+C:\SviluppoTest\MQTTClient\ClientMqtt_Test\ClientMqtt_Test\obj\Debug\net6.0\refint\ClientMqtt_Test.dll
+C:\SviluppoTest\MQTTClient\ClientMqtt_Test\ClientMqtt_Test\obj\Debug\net6.0\ClientMqtt_Test.pdb
+C:\SviluppoTest\MQTTClient\ClientMqtt_Test\ClientMqtt_Test\obj\Debug\net6.0\ClientMqtt_Test.genruntimeconfig.cache
+C:\SviluppoTest\MQTTClient\ClientMqtt_Test\ClientMqtt_Test\obj\Debug\net6.0\ref\ClientMqtt_Test.dll
