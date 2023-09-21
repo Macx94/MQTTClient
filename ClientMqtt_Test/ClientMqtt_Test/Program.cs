@@ -19,7 +19,7 @@ string _server = "127.0.0.1";
 ///Indicazione di Topic 
 ///Topic WildCard che consente la sottoscrizione a TUTTI i topic tranne a quelli che iniziano con il carattere $ genericamente riservati e in sola lettura
 //string _subscribeTopic = "#";
-///Topic WildCard che consente la sottoscrizione a TUTTI i topic tranne a quelli che iniziano con il carattere $ genericamente riservati e in sola lettura
+///Topic WildCard che consente la sottoscrizione al primo livello del topic tranne a quelli che iniziano con il carattere $ genericamente riservati e in sola lettura
 //string _subscribeTopic = "+";
 ///Topic WildCard 2 che legge tutti i sottoTopic di quel percorso
 //string _subscribeTopic = "BIG/#";
