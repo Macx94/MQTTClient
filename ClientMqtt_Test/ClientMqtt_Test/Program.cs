@@ -31,6 +31,7 @@ string _server = "127.0.0.1";
 //string _subscribeTopic = "BIG/+/2022/#";
 ///Topic specifico, sottoscrive e legge i cambiamenti solamente di quello specifico Topic
 string _subscribeTopic = "BIG/Test/INT/2023";
+string _subscribeTopic2 = "BIG/Test/JSON/2023";
 
 #endregion
 
@@ -63,6 +64,7 @@ do
             Console.WriteLine("publish_ri: si connette al broker ed effettua la publicazione di un valore intero con flag Retain.");
             Console.WriteLine("publish_json: si connette al broker ed effettua la publicazione di un valore json.");
             Console.WriteLine("subscribe: si connette al broker ed effettua una sottoscrizione.");
+            Console.WriteLine("subscribe_multi: si connette al broker ed effettua più sottoscrizioni contemporaneamente.");
             Console.WriteLine("subscribe_wc: si connette al broker ed effettua una sottoscrizione come Wild Card.");
             Console.WriteLine("timer: esegue un test dello Sleep.");
             Console.WriteLine("verifyconnection: esegue un test di connessione del client al broker.");
@@ -109,6 +111,27 @@ do
                 Thread.Sleep(10000);
                 Console.WriteLine("FINE!!!");
                 await sottoscrittore.Unsubscribe(_subscribeTopic, mqttClient);
+                await sottoscrittore.Disconnect(mqttFactory, mqttClient);
+            }
+            break;
+        case ("subscribe_multi"):
+            using (var mqttClient = (MqttClient)mqttFactory.CreateMqttClient())
+            {
+                Subscription sottoscrittore = new Subscription(mqttClient);
+                await sottoscrittore.Connect(_server, mqttClient);
+                await sottoscrittore.Subscribe(_subscribeTopic, mqttClient);
+                await sottoscrittore.Subscribe(_subscribeTopic2, mqttClient);
+                Console.WriteLine($"Azione avviata con il Topic {_subscribeTopic} e {_subscribeTopic2}, durata dell'operazione 2 minuti ");
+                Thread.Sleep(60000);
+                Console.WriteLine("1 minuto ");
+                Thread.Sleep(30000);
+                Console.WriteLine("30 secondi....");
+                Thread.Sleep(20000);
+                Console.WriteLine("10 secondi....");
+                Thread.Sleep(10000);
+                Console.WriteLine("FINE!!!");
+                await sottoscrittore.Unsubscribe(_subscribeTopic, mqttClient);
+                await sottoscrittore.Unsubscribe(_subscribeTopic2, mqttClient);
                 await sottoscrittore.Disconnect(mqttFactory, mqttClient);
             }
             break;
